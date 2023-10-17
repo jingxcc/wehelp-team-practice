@@ -74,15 +74,15 @@ const changeLocation = async() => {
     changeTextContent(".rainpercentage", weatherElement[1]["value"]);
 
     // weather
+    let//
+    weatherIconObj = {},
+    weatherIcon = document.querySelector(".weathericon");
+    weatherIcon.style.backgroundImg = `url('../weather_icon/${weatherIconObj[weatherElement[0]["value"]]}')`;
+    
     changeTextContent(".weathertext", weatherElement[0]["value"]);
     changeLocation(".comfort", weatherElement[2]["value"]);
 
     // day_temperature
-    let//
-    weatherIconObj = {},
-    weatherIcon = document.querySelector(".weathericon");
-    weatherIcon.style.backgroundImg = `url('../weather_icon/${}')`;
-    
     changeTextContent(".max_temperature", weatherElement[4]["value"]);
     changeTextContent(".min_temperature", weatherElement[3]["value"]);
 
