@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/form.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700&display=swap" rel="stylesheet">
+    <title></title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="select-form-wrapper">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-square-envelope icon"></i>
+            </div>
+
+            <p class="slogan">Become a Subscriber</p>
+            <!-- <p class="yourdc">我們將時刻通知您最新氣候資訊</p> -->
+            <p class="yourdc">輸入你的discord，並選擇您的所在地區</p>
+            <div class="input-wrapper">
+                <input type="text" class="user-input">
+            </div>
+            
+            <p class="yourchoose">您所在的地區：
+                <span class="user-location"></span>
+            </p>
+
+            <div class="good">
+                <div class="select-form">
+                    <p class="select-btn" style="height: 34px;">選擇地區</p> 
+                    <ul class="drop-down">
+                        <li class="opt" style="height: 34px;">台北</li>
+                        <li class="opt" style="height: 34px;">新北</li>
+                        <li class="opt" style="height: 34px;">桃園</li>
+                        <li class="opt" style="height: 34px;">台中</li>
+                        <li class="opt" style="height: 34px;">台南</li>
+                        <li class="opt" style="height: 34px;">高雄</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subscribe-btn">
+                <p onclick="getUserData()">Subscribe</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/static/js/subform.js"></script>
+</body>
+</html>
+

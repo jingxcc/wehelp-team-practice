@@ -1,0 +1,249 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.wrapper {
+  background-color: #ffffff;
+  border: 1px red solid;
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 33px;
+}
+
+.select-form-wrapper {
+  padding: 20px 70px 80px 70px;
+  background-color: #e8e8e8;
+  height: 100vh;
+}
+
+.icon-wrapper {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+.icon-wrapper .icon {
+  display: block;
+  font-size: 100px;
+  background: linear-gradient(45deg, #ffe658, #04cefc, #ff1b9c, #adfff7); /* 添加漸層背景 */
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.slogan {
+  font-family: "Exo 2", sans-serif;
+  width: 400px;
+  font-size: auto;
+  align-self: center;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 40px;
+}
+
+.yourchoose {
+  font-family: "Exo 2", sans-serif;
+  width: 100%;
+  align-self: center;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #4d4d4d;
+  font-family: Noto Sans TC;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 13.3px; /* 83.125% */
+}
+
+.yourdc {
+  color: #4d4d4d;
+  /* Body - Med 16(13.3) */
+  font-family: Noto Sans TC;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 13.3px; /* 83.125% */
+  width: 100%;
+  align-self: center;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.input-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.input-wrapper input {
+  height: 25px;
+  width: 282px;
+  color: #494949;
+  border: 2px solid #c2c2c2; /* 设置边框颜色为红色 */
+  border-radius: 5px; /* 设置边框圆角半径 */
+  padding: 15px 10px; /* 设置内边距 */
+  font-size: 18px; /* 设置字体大小 */
+}
+.input-wrapper input:focus {
+  border: 2px solid #383838; /* 设置获取焦点时的边框颜色为绿色 */
+}
+
+.good {
+  position: relative;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.good .select-form {
+  width: 130px;
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  cursor: pointer;
+}
+
+.opt, .select-btn {
+  color: var(--secondary-color-gray-70, #000000);
+  font-family: Noto Sans TC;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 20px 0px;
+  cursor: pointer;
+  border: 1px rgb(201, 201, 201) solid;
+  background-color: #ffffff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4d4d4d;
+  /* Body - Med 16(13.3) */
+  font-family: Noto Sans TC;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 13.3px; /* 83.125% */
+}
+
+.opt {
+  display: none;
+}
+
+.opt:hover,
+.select-btn:hover {
+  background: linear-gradient(45deg, rgba(181, 241, 255, 0.7803921569), #ff81c8, #adfff7); /* 添加漸層背景 */
+  background-size: 100% 1000%;
+  background-size: 100% 1000%;
+  color: #000000;
+}
+
+.select-form:hover .opt {
+  display: flex;
+  opacity: 0;
+}
+
+.select-form:hover .drop-down {
+  perspective: 800px;
+}
+
+.select-form:hover .drop-down li:nth-child(1) {
+  animation: drop 500ms ease-in-out forwards;
+  animation-delay: 0ms;
+}
+
+.select-form:hover .drop-down li:nth-child(2) {
+  animation: drop 500ms ease-in-out forwards;
+  animation-delay: 100ms;
+}
+
+.select-form:hover .drop-down li:nth-child(3) {
+  animation: drop 500ms ease-in-out forwards;
+  animation-delay: 200ms;
+}
+
+.select-form:hover .drop-down li:nth-child(4) {
+  animation: drop 500ms ease-in-out forwards;
+  animation-delay: 400ms;
+}
+
+.select-form:hover .drop-down li:nth-child(5) {
+  animation: drop 500ms ease-in-out forwards;
+  animation-delay: 500ms;
+}
+
+.select-form:hover .drop-down li:nth-child(6) {
+  animation: drop 500ms ease-in-out forwards;
+  animation-delay: 600ms;
+}
+
+@keyframes drop {
+  0% {
+    opacity: 1;
+    transform: rotateZ(0deg) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(130px) scale(2.5);
+    transform: rotateZ(0deg) rotateX(360deg) rotateY(-460deg) translateY(0px) translateX(-500px) scale(3);
+    background-color: rgb(255, 181, 236);
+  }
+  50% {
+    transform: scale(0.6);
+    opacity: 0.4;
+    background-color: rgb(130, 238, 255);
+  }
+  75% {
+    background: linear-gradient(45deg, rgba(181, 241, 255, 0.7803921569), #ff81c8, #adfff7); /* 添加漸層背景 */
+    background-size: 100% 1000%;
+  }
+  100% {
+    opacity: 1;
+    transform: rotateZ(0deg) rotate(0deg) rotateY(0deg) translateY(0px) translateX(0px) scale(1);
+  }
+}
+.subscribe-btn:hover {
+  transform: scale(1.05);
+}
+
+.subscribe-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.subscribe-btn p {
+  padding: 10px 40px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: 20px;
+  font-family: "Exo 2", sans-serif;
+  color: #ffffff;
+  background-color: rgba(110, 45, 215, 0.8509803922);
+  background: linear-gradient(45deg, #ffe658, #04cefc, #ff1b9c, #adfff7); /* 添加漸層背景 */
+  background: linear-gradient(45deg, #04cefc, #ff1b9c, #adfff7, #ff1b9c); /* 添加漸層背景 */
+  background-size: 200% 800%;
+  cursor: pointer;
+  width: 400px;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.subscribe-btn p {
+  background-size: 200% 800%;
+  background-size: 800% 800%;
+  animation: gradient 5s ease-in-out infinite;
+}/*# sourceMappingURL=form.css.map */
