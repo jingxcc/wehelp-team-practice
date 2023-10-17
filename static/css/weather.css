@@ -1,0 +1,221 @@
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url('../backgroung_images/background-1.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: 'Noto Sans TC';
+}
+
+@media (min-width: 1200px) and (max-width: 1920px)  {
+    .background-image {
+        width: 100%;
+        height: 100%;
+
+       
+    }
+    
+    
+    .background-image::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3); 
+
+    }
+
+    .content{
+        width: 1200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+        height: 100vh;
+
+    }
+
+    .section1{
+        width: 1200px;
+        height: 50%;
+        display: flex;
+        position: relative;
+        margin-top: 50px;
+        flex: 1;
+
+    }
+    .left{
+        width: 900px;
+    }
+    .citys{
+        display: flex;
+        position: relative;
+    }
+    .city{
+        color: #fff;
+        font-size: 80px;
+        font-weight:bold;
+
+
+        
+    }
+    .triangle {
+        width: 0;
+        height: 0;
+        border-left: 12px solid transparent; /* 左边透明 */
+        border-right: 12px solid transparent; /* 右边透明 */
+        border-top: 20px solid #fff; /* 底部红色 */
+        position: relative;
+        margin-top: 70px;
+        margin-left:8px ;
+    }
+    .taiwan{
+        font-size: 30px;
+        color: #fff;
+        margin-top: 10px;
+        margin-left: 10px;
+
+    }
+    .time_part{
+        margin-left: 10px;
+        display: flex;
+        margin-top: 20px;
+        font-style:italic;
+
+    }
+
+    .date{
+        color: #fff;
+        font-size: 30px;
+    }
+    .time{
+        color: #fff;
+        font-size: 30px;
+        margin-left: 15px;
+    }
+    .right{
+        width:300px;
+        text-align: right;
+        margin-top: 20px;
+    
+    }
+    .raintext{
+        font-size: 30px;
+        color: #fff;
+        margin-right: 10px;
+        
+    }
+    .rainbox{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .rainpercentage{
+        font-size: 40px;
+        color: #fff;
+        align-items: center;
+        display: flex;
+    }
+
+    .rainicon{
+        background-image: url('../weather_icon/rain.png');
+        width: 70px;
+        height: 70px;
+        z-index: 3;
+        background-size: cover;
+    }
+    .section2{
+        width: 1200px;
+        height: 40%;
+        display: flex;
+        position: relative;
+        
+        flex-direction: column;
+        bottom: 0;
+    }
+    .weather{
+        display: flex;
+    }
+    .weathericon{
+        background-image: url('../weather_icon/day-clear.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+    }
+    .weathertext{
+        font-size: 30px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+    }
+    .comfort{
+        font-size: 30px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+    }
+    .day_temperature{
+        display: flex;
+        margin-top: 10px;
+        
+    }
+    .icon-arrow_up{
+        background-image: url('../images/arrow_up.png');
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        z-index: 3;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .icon-arrow_down{
+        background-image: url('../images/arrow_up.png');
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        z-index: 3;
+        transform: rotate(180deg);
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .max_temperature{
+        font-size: 25px;
+        color: #fff;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .min_temperature{
+        font-size: 25px;
+        color: #fff;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .now_temperature{
+        display: flex;
+    }
+    .temperature_degree{
+        font-size: 300px;
+        color: #fff;
+    }
+    .degree{
+        font-size: 120px;
+        color: #fff;
+        margin-top: 50px;
+    }
+    .Celsiusdegrees{
+        font-size: 60px;
+        color: #fff;
+        margin-top: 210px;
+    }
+
+
+}
+
+@media  (min-width: 768px) and (max-width: 1200px) {}
+
+@media (min-width: 360px) and (max-width: 767px) {}
