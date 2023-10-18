@@ -32,6 +32,7 @@ weatherIconDict = {
     "有霧": "day-fog.png",
     "下雪": "day-snowing.png"
 };
+// 還要再補上小太陽的切換依據
 
 
 // ----- Change weather as location changes -----
@@ -55,7 +56,7 @@ const changeWeather = async (cityChosen) => {
 
     // update time_part
     let currentTime = new Date();
-    changeTextContent(".date", `${currentTime.getMonth()}/${currentTime.getDate()}`);
+    changeTextContent(".date", `${currentTime.getMonth()+1}/${currentTime.getDate()}`);
     changeTextContent(".time", `${currentTime.getHours()} : ${currentTime.getMinutes()}`);
 
     // update rainpercentage
@@ -110,14 +111,14 @@ const subscribeEpaper = async() => {
 
         if (!response.ok) {
             console.log(result.description);
-            throw("Subscription failed.");
+            throw "Subscription failed.";
         };
 
-        return("Subscription succeeded.")
+        return "Subscription succeeded."
     }
     catch(error) {
         console.log(error);
-        throw (error)
+        throw error
     }
 }
 
@@ -141,14 +142,14 @@ const updateEpaper = async() => {
 
         if (!response.ok) {
             console.log(result.description);
-            throw("Update failed.");
+            throw "Update failed.";
         };
 
-        return("Update succeeded.")
+        return "Update succeeded.";
     }
     catch(error) {
         console.log(error);
-        throw (error)
+        throw error
     }   
 }
 
@@ -169,14 +170,14 @@ const deleteEpaper = async() => {
 
         if (!response.ok) {
             console.log(result.description);
-            throw("Delete failed.");
+            throw "Delete failed.";
         };
 
-        return("Delete succeeded.")
+        return "Delete succeeded.";
     }
     catch(error) {
         console.log(error);
-        throw (error)
+        throw error
     }   
 }
 
@@ -184,8 +185,8 @@ const deleteEpaper = async() => {
 // ----- add click event for Epaper-----
 let// 
 subscribeBtn = document.querySelector(".subscribe-btn"),
-updateBtn = document.querySelector("."),
-deleteBtn = document.querySelector(".");
+updateBtn = document.querySelector("."), //待補上update button element
+deleteBtn = document.querySelector(".");//待補上delete button element
 
 subscribeBtn.addEventListener("click", subscribeEpaper);
 updateBtn.addEventListener("click", updateEpaper);
