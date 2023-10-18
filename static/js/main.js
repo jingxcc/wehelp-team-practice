@@ -4,7 +4,7 @@ const getWeatherInfo = async (location) => {
         let//
         response = await fetch(`/api/weathers?locationName=${location}`),
         result = await response.json(),
-        data = await result["data"];
+        data = await result["data"][0]["weatherElement"];
         return data
     }
     catch(error) {
@@ -16,7 +16,6 @@ const getWeatherInfo = async (location) => {
 
 // ----- set global variables -----
 var// 
-// weatherInfo = getWeatherInfo("臺北市"),
 dogPics = {
     "台北市": "background-1.jpg",
     "新北市": "background-2.jpg",
@@ -25,14 +24,6 @@ dogPics = {
     "台南市": "background-5.jpg",
     "高雄市": "background-6.jpg"
 },
-// cityIndex = {
-//     "台北市": 6,
-//     "新北市": 7,
-//     "桃園市": 8,
-//     "台中市": 9,
-//     "台南市": 10,
-//     "高雄市": 11
-// },
 weatherIconDict = {
     "晴天": "day-clear.png",
     "陰天": "day-cloudy.png",
@@ -52,11 +43,15 @@ const changeTextContent = (cssSelector, content) => {
 
 const changeWeather = async (cityChosen) => {
     // fetch location weather info
-    let weatherInfo = await getWeatherInfo(cityChosen);
+    let weatherElement = await getWeatherInfo(cityChosen);
+
+    // update location
+    changeTextContent(".city", cityChosen);
 
     // update cute dog picture
-    backgroundImg = document.querySelector(".background-image");
-    backgroundImg.style.backgroundImg = `url('../background_images/${dogPics[cityChosen]}')`;
+    let backgroundImg = document.querySelector("body");
+    backgroundImg.style.backgroundImage = `url("static/backgroung_images/${dogPics[cityChosen]}")`;
+    // ../backgroung_images/background-1.jpg
 
     // update time_part
     let currentTime = new Date();
@@ -64,27 +59,27 @@ const changeWeather = async (cityChosen) => {
     changeTextContent(".time", `${currentTime.getHours()} : ${currentTime.getMinutes()}`);
 
     // update rainpercentage
-    changeTextContent(".rainpercentage", weatherInfo[1]["value"]);
+    changeTextContent(".rainpercentage", weatherElement[1]["value"]);
 
     // update weather
     let//
     weatherIcon = document.querySelector(".weathericon");
-    weatherIcon.style.backgroundImg = `url('../weather_icon/${weatherIconDict[weatherInfo[0]["value"]]}')`;
+    weatherIcon.style.backgroundImg = `url('../weather_icon/${weatherIconDict[weatherElement[0]["value"]]}')`;
     
-    changeTextContent(".weathertext", weatherInfo[0]["value"]);
-    changeLocation(".comfort", weatherInfo[2]["value"]);
+    changeTextContent(".weathertext", weatherElement[0]["value"]);
+    changeTextContent(".comfort", weatherElement[2]["value"]);
 
     // update day_temperature
-    changeTextContent(".max_temperature", weatherInfo[4]["value"]);
-    changeTextContent(".min_temperature", weatherInfo[3]["value"]);
+    changeTextContent(".max_temperature", weatherElement[4]["value"]);
+    changeTextContent(".min_temperature", weatherElement[3]["value"]);
 
     // update now_temperature
-    changeTextContent(".temperature_degree", weatherInfo[5]["value"]);
+    changeTextContent(".temperature_degree", weatherElement[5]["value"]);
 }
 
 
 // ----- set default weather information in Taipei ----
-changeWeather("臺北市");
+changeWeather("台北市");
 
 
 // ----- add click event to location options -----
