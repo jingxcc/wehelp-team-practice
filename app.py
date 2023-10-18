@@ -1,12 +1,12 @@
 from flask import Flask, render_template
 
 from routes.weahter import weather_bp
-from e_paper import e_paper
+from subscribe_newsletter import newsletter
 from db_connection import DB_Connector
 
 app = Flask(__name__)
 app.register_blueprint(weather_bp)
-app.register_blueprint(e_paper)
+app.register_blueprint(newsletter)
 
 app.json.ensure_ascii = False
 app.json.sort_keys = False

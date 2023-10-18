@@ -5,7 +5,7 @@ from flask import Blueprint, jsonify, request, current_app
 import requests
 from dotenv import load_dotenv
 
-e_paper = Blueprint('e_paper', __name__)
+newsletter = Blueprint('newsletter', __name__)
 
 # views
 def check_input(city, webhook_url):
@@ -66,7 +66,7 @@ def del_subscriber(webhook_url):
     cnx_pool.release_connection_and_cursor(conn, cursor)
     return {'ok': True}, 200
     
-def send_e_paper_subscription_notification(city, webhook_url, state):
+def send_newsletter_subscription_notification(city, webhook_url, state):
     state_content_map = {
         'add': f'哈囉~ 感謝您訂閱天氣小幫手，在每天早上8推播:four_leaf_clover:{city}:four_leaf_clover:的天氣資訊給您。\n以下是今天的天氣資訊，那我們明天見囉:sparkles:',
         'update': f'訂閱的城市更新囉！之後每天早上8推播:four_leaf_clover:{city}:four_leaf_clover:的天氣資訊給您。\n以下是今天的天氣資訊，那我們明天見囉:sparkles:',
@@ -113,8 +113,8 @@ def send_weather_info(weather_comment, webhook_url):
         r = requests.post(webhook_url, json = weather_detail)
 
 # controllers
-@e_paper.route('/api/e_paper', methods = ['POST', 'PATCH'])
-def subscribe_e_paper():
+@newsletter.route('/api/e_paper', methods = ['POST', 'PATCH'])
+def subscribe_newsletter():
     data = request.get_json()
     city = data.get('city')
     webhook_url = data.get('webhookUrl')
@@ -129,7 +129,7 @@ def subscribe_e_paper():
             return jsonify(response), status_code
         weather_info = get_weather_info(city)
         weather_comment = parse_weather_description(weather_info)
-        send_e_paper_subscription_notification(city, webhook_url, 'add')
+        send_newsletter_subscription_notification(city, webhook_url, 'add')
         send_weather_info(weather_comment, webhook_url)
         return jsonify(response), status_code
 
@@ -139,14 +139,14 @@ def subscribe_e_paper():
             return jsonify(response), status_code
         weather_info = get_weather_info(city)
         weather_comment = parse_weather_description(weather_info)
-        send_e_paper_subscription_notification(city, webhook_url, 'update')
+        send_newsletter_subscription_notification(city, webhook_url, 'update')
         send_weather_info(weather_comment, webhook_url)
         return jsonify(response), status_code
 
-@e_paper.route('/api/e_paper', methods = ['DELETE'])
+@newsletter.route('/api/e_paper', methods = ['DELETE'])
 def del_subscribe_info():
     data = request.get_json()
     webhook_url = data.get('webhookUrl')
     response, status_code = del_subscriber(webhook_url)
-    send_e_paper_subscription_notification(None, webhook_url, 'delete')
+    send_newsletter_subscription_notification(None, webhook_url, 'delete')
     return response, status_code
