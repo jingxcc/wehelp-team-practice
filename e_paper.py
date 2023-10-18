@@ -1,7 +1,9 @@
 import re
+import os
 
 from flask import Blueprint, jsonify, request, current_app
 import requests
+from dotenv import load_dotenv
 
 e_paper = Blueprint('e_paper', __name__)
 
@@ -77,6 +79,8 @@ def send_e_paper_subscription_notification(city, webhook_url, state):
     r = requests.post(webhook_url, json = request_body)
   
 def get_weather_info(city):
+    load_dotenv()
+    weather_api_key = os.getenv('weather_api_key')
     api_url_dic = {
         '台北': 'https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-C0032-009',
         '新北': 'https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-C0032-010',
@@ -87,7 +91,7 @@ def get_weather_info(city):
     }
     url = api_url_dic[city]
     params = {
-    "Authorization": "CWA-28A64111-004B-4509-A905-C344C33D34C3",
+    "Authorization": weather_api_key,
     "downloadType": "WEB",
     "format": "JSON"
     }
