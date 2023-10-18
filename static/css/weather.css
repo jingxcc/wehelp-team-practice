@@ -13,217 +13,408 @@ body {
   font-family: "Noto Sans TC";
 }
 
-@media (min-width: 1200px) and (max-width: 1920px) {
-  .background-image {
+@media (min-width: 1200px) and (max-width: 3840px)  {
+    .background-image {
+        width: 100%;
+        height: 100%;
+
+       
+    }
+    
+    
+    .background-image::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3); 
+
+    }
+
+    .content{
+        width: 1200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+        height: 100vh;
+
+    }
+
+    .section1{
+        width: 1200px;
+        height: 50%;
+        display: flex;
+        position: relative;
+        margin-top: 30px;
+        flex: 1;
+
+    }
+    .left{
+        width: 900px;
+    }
+    .citys{
+        display: flex;
+        position: relative;
+    }
+    .city{
+        color: #fff;
+        font-size: 80px;
+        font-weight:bold;
+
+
+        
+    }
+    .triangle {
+        width: 0;
+        height: 0;
+        border-left: 12px solid transparent; /* 左边透明 */
+        border-right: 12px solid transparent; /* 右边透明 */
+        border-top: 20px solid #fff; /* 底部红色 */
+        position: relative;
+        margin-top: 70px;
+        margin-left:8px ;
+    }
+    .taiwan{
+        font-size: 30px;
+        color: #fff;
+        margin-top: 10px;
+        margin-left: 10px;
+
+    }
+    .time_part{
+        margin-left: 10px;
+        display: flex;
+        margin-top: 20px;
+        font-style:italic;
+
+    }
+
+    .date{
+        color: #fff;
+        font-size: 30px;
+    }
+    .time{
+        color: #fff;
+        font-size: 30px;
+        margin-left: 15px;
+    }
+    .right{
+        width:300px;
+        text-align: right;
+        margin-top: 20px;
+    
+    }
+    .raintext{
+        font-size: 30px;
+        color: #fff;
+        margin-right: 10px;
+        
+    }
+    .rainbox{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .rainpercentage{
+        font-size: 40px;
+        color: #fff;
+        align-items: center;
+        display: flex;
+    }
+
+    .rainicon{
+        background-image: url('../weather_icon/rain.png');
+        width: 70px;
+        height: 70px;
+        z-index: 3;
+        background-size: cover;
+    }
+    .section2{
+        width: 1200px;
+        display: flex;
+        position: relative;
+        bottom: 0;
+    }
+    .section2-left{
+        flex-direction: column;
+        display: flex;
+        width: 900px;
+    }
+
+
+    .weather{
+        display: flex;
+    }
+    .weathericon{
+        background-image: url('../weather_icon/day-clear.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+    }
+    .weathertext{
+        font-size: 30px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+    }
+    .comfort{
+        font-size: 30px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+    }
+    .day_temperature{
+        display: flex;
+        margin-top: 10px;
+        
+    }
+    .icon-arrow_up{
+        background-image: url('../images/arrow_up.png');
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        z-index: 3;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .icon-arrow_down{
+        background-image: url('../images/arrow_up.png');
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        z-index: 3;
+        transform: rotate(180deg);
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .max_temperature{
+        font-size: 25px;
+        color: #fff;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .min_temperature{
+        font-size: 25px;
+        color: #fff;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .now_temperature{
+        display: flex;
+    }
+    .temperature_degree{
+        font-size: 250px;
+        color: #fff;
+        
+        
+        
+    }
+    .degree{
+        font-size: 120px;
+        color: #fff;
+        margin-top: 30px;
+    }
+    .Celsiusdegrees{
+        font-size: 60px;
+        color: #fff;
+        margin-top: 170px;
+    }
+    .section2-right{
+        width:300px;
+        text-align: right;
+        margin-top: 230px;
+    }
+    .subscribe{
+        font-size: 25px;
+        color: #fff;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    .subscribe-icon{
+        background-image: url('../images/email.png');
+        background-size: cover;
+        width: 60px;
+        height: 60px;
+        float: right;
+        cursor: pointer;
+    }
+
+}
+
+@media  (min-width: 768px) and (max-width: 1200px) {
+.background-image {
     width: 100%;
     height: 100%;
-  }
-  .background-image::before {
+
+   
+}
+
+
+.background-image::before {
     content: "";
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-  }
-  .content {
-    width: 1200px;
+    background: rgba(0, 0, 0, 0.3); 
+
+}
+
+.content{
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
     height: 100vh;
-  }
-  .section1 {
-    width: 1200px;
+
+}
+
+.section1{
+    width: 100%;
     height: 50%;
     display: flex;
     position: relative;
-    margin-top: 50px;
+    margin-top: 30px;
     flex: 1;
-  }
-  .left {
-    width: 900px;
-  }
-  .citys {
-    width: 242px;
+
+}
+.left{
+    width: 70%;
+}
+.citys{
     display: flex;
     position: relative;
-  }
-  .city {
-    cursor: pointer;
+}
+.city{
     color: #fff;
     font-size: 80px;
-    font-weight: bold;
-  }
-  .opt {
-    color: var(--secondary-color-gray-70, #000000);
-    padding: 20px 0px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 25px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, 0.5176470588);
-  }
-  .opt:hover {
-    font-size: 33px;
-    color: #ffffff;
-  }
-  .drop-down {
-    display: none;
-    width: 100px;
-    position: absolute;
-    top: 7%;
-    left: 95%;
-    z-index: 5;
-  }
-  .select-form:hover .opt {
-    opacity: 0;
-  }
-  .select-form:hover .drop-down {
-    display: block;
-    perspective: 800px;
-  }
-  .select-form:hover .drop-down li:nth-child(1) {
-    animation: drop 500ms ease-in-out forwards;
-    animation-delay: 0ms;
-  }
-  .select-form:hover .drop-down li:nth-child(2) {
-    animation: drop 500ms ease-in-out forwards;
-    animation-delay: 100ms;
-  }
-  .select-form:hover .drop-down li:nth-child(3) {
-    animation: drop 500ms ease-in-out forwards;
-    animation-delay: 200ms;
-  }
-  .select-form:hover .drop-down li:nth-child(4) {
-    animation: drop 500ms ease-in-out forwards;
-    animation-delay: 400ms;
-  }
-  .select-form:hover .drop-down li:nth-child(5) {
-    animation: drop 500ms ease-in-out forwards;
-    animation-delay: 500ms;
-  }
-  .select-form:hover .drop-down li:nth-child(6) {
-    animation: drop 500ms ease-in-out forwards;
-    animation-delay: 600ms;
-  }
-  @keyframes drop {
-    0% {
-      opacity: 1;
-      transform: rotateZ(0deg) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(130px) scale(2.5);
-      transform: rotateZ(0deg) rotateX(360deg) rotateY(-460deg) translateY(0px) translateX(-500px) scale(3);
-    }
-    50% {
-      transform: scale(0.6);
-      opacity: 0.4;
-    }
-    75% {
-      background-size: 100% 1000%;
-    }
-    100% {
-      opacity: 1;
-      transform: rotateZ(0deg) rotate(0deg) rotateY(0deg) translateY(0px) translateX(0px) scale(1);
-    }
-  }
-  .taiwan {
+    font-weight:bold;
+
+
+    
+}
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent; /* 左边透明 */
+    border-right: 12px solid transparent; /* 右边透明 */
+    border-top: 20px solid #fff; /* 底部红色 */
+    position: relative;
+    margin-top: 70px;
+    margin-left:8px ;
+}
+.taiwan{
     font-size: 30px;
     color: #fff;
     margin-top: 10px;
     margin-left: 10px;
-  }
-  .time_part {
+
+}
+.time_part{
     margin-left: 10px;
     display: flex;
     margin-top: 20px;
-    font-style: italic;
-  }
-  .date {
+    font-style:italic;
+
+}
+
+.date{
     color: #fff;
     font-size: 30px;
-  }
-  .time {
+}
+.time{
     color: #fff;
     font-size: 30px;
     margin-left: 15px;
-  }
-  .right {
-    width: 300px;
+}
+.right{
+    width:30%;
     text-align: right;
     margin-top: 20px;
-  }
-  .raintext {
+
+}
+.raintext{
     font-size: 30px;
     color: #fff;
     margin-right: 10px;
-  }
-  .rainbox {
+    
+}
+.rainbox{
     display: flex;
     justify-content: flex-end;
-  }
-  .rainpercentage {
+}
+.rainpercentage{
     font-size: 40px;
     color: #fff;
     align-items: center;
     display: flex;
-  }
-  .rainicon {
-    background-image: url("../weather_icon/rain.png");
+}
+
+.rainicon{
+    background-image: url('../weather_icon/rain.png');
     width: 70px;
     height: 70px;
     z-index: 3;
     background-size: cover;
-  }
-  .section2 {
-    width: 1200px;
-    height: 40%;
+}
+.section2{
+    width: 100%;
     display: flex;
     position: relative;
-    flex-direction: column;
     bottom: 0;
-  }
-  .weather {
+}
+.section2-left{
+    flex-direction: column;
     display: flex;
-  }
-  .weathericon {
-    background-image: url("../weather_icon/day-clear.png");
+    width: 70%;
+}
+
+
+.weather{
+    display: flex;
+}
+.weathericon{
+    background-image: url('../weather_icon/day-clear.png');
     background-size: cover;
     width: 50px;
     height: 50px;
     display: flex;
     align-items: center;
-  }
-  .weathertext {
+}
+.weathertext{
     font-size: 30px;
     color: #fff;
     display: flex;
     align-items: center;
     margin-left: 15px;
-  }
-  .comfort {
+}
+.comfort{
     font-size: 30px;
     color: #fff;
     display: flex;
     align-items: center;
     margin-left: 15px;
-  }
-  .day_temperature {
+}
+.day_temperature{
     display: flex;
     margin-top: 10px;
-  }
-  .icon-arrow_up {
-    background-image: url("../images/arrow_up.png");
+    
+}
+.icon-arrow_up{
+    background-image: url('../images/arrow_up.png');
     background-size: cover;
     width: 30px;
     height: 30px;
     z-index: 3;
     margin-left: 10px;
     margin-right: 10px;
-  }
-  .icon-arrow_down {
-    background-image: url("../images/arrow_up.png");
+}
+.icon-arrow_down{
+    background-image: url('../images/arrow_up.png');
     background-size: cover;
     width: 30px;
     height: 30px;
@@ -231,34 +422,287 @@ body {
     transform: rotate(180deg);
     margin-left: 10px;
     margin-right: 10px;
-  }
-  .max_temperature {
+}
+.max_temperature{
     font-size: 25px;
     color: #fff;
     margin-left: 5px;
     margin-right: 5px;
-  }
-  .min_temperature {
+}
+.min_temperature{
     font-size: 25px;
     color: #fff;
     margin-left: 5px;
     margin-right: 5px;
-  }
-  .now_temperature {
+}
+.now_temperature{
     display: flex;
-  }
-  .temperature_degree {
-    font-size: 300px;
+}
+.temperature_degree{
+    font-size: 250px;
     color: #fff;
-  }
-  .degree {
+    
+    
+    
+}
+.degree{
     font-size: 120px;
     color: #fff;
-    margin-top: 50px;
-  }
-  .Celsiusdegrees {
+    margin-top: 30px;
+}
+.Celsiusdegrees{
     font-size: 60px;
     color: #fff;
-    margin-top: 210px;
-  }
-}/*# sourceMappingURL=weather.css.map */
+    margin-top: 170px;
+}
+.section2-right{
+    width:30%;
+    text-align: right;
+    margin-top: 230px;
+}
+.subscribe{
+    font-size: 25px;
+    color: #fff;
+
+    cursor: pointer;
+}
+.subscribe-icon{
+    background-image: url('../images/email.png');
+    background-size: cover;
+    width: 60px;
+    height: 60px;
+    float: right;
+    cursor: pointer;
+}
+}
+@media (min-width: 360px) and (max-width: 767px) {
+    .background-image {
+        width: 100%;
+        height: 100%;
+    
+       
+    }
+    
+    
+    .background-image::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3); 
+    
+    }
+    
+    .content{
+        width: 95%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+        height: 100vh;
+    
+    }
+    
+    .section1{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        position: relative;
+        margin-top: 10px;
+        flex: 1;
+    
+    }
+    .left{
+        width: 70%;
+    }
+    .citys{
+        display: flex;
+        position: relative;
+    }
+    .city{
+        color: #fff;
+        font-size: 55px;
+        font-weight:bold;
+    
+    
+        
+    }
+    .triangle {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent; /* 左边透明 */
+        border-right: 10px solid transparent; /* 右边透明 */
+        border-top: 15px solid #fff; /* 底部红色 */
+        position: relative;
+        margin-top: 45px;
+        margin-left:8px ;
+    }
+    .taiwan{
+        font-size: 25px;
+        color: #fff;
+        margin-top: 5px;
+        margin-left: 10px;
+    
+    }
+    .time_part{
+        margin-left: 10px;
+        display: flex;
+        margin-top: 10px;
+        font-style:italic;
+    
+    }
+    
+    .date{
+        color: #fff;
+        font-size: 25px;
+    }
+    .time{
+        color: #fff;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+    .right{
+        width: 30%;
+        text-align: right;
+        margin-top: 20px;
+    
+    }
+    .raintext{
+        font-size: 20px;
+        color: #fff;
+        margin-right: 10px;
+        
+    }
+    .rainbox{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .rainpercentage{
+        font-size: 20px;
+        color: #fff;
+        align-items: center;
+        display: flex;
+    }
+    
+    .rainicon{
+        background-image: url('../weather_icon/rain.png');
+        width: 35px;
+        height: 35px;
+        z-index: 3;
+        background-size: cover;
+    }
+    .section2{
+        width: 100%;
+        display: flex;
+        position: relative;
+        bottom: 0;
+    }
+    .section2-left{
+        flex-direction: column;
+        display: flex;
+        width: 70%;
+    }
+    
+    
+    .weather{
+        display: flex;
+        align-items: center;
+    }
+    .weathericon{
+        background-image: url('../weather_icon/day-clear.png');
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+    }
+    .weathertext{
+        font-size: 25px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+    }
+    .comfort{
+        font-size: 25px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+    }
+    .day_temperature{
+        display: flex;
+        margin-top: 5px;
+        
+    }
+    .icon-arrow_up{
+        background-image: url('../images/arrow_up.png');
+        background-size: cover;
+        width: 20px;
+        height: 25px;
+        z-index: 3;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .icon-arrow_down{
+        background-image: url('../images/arrow_up.png');
+        background-size: cover;
+        width: 20px;
+        height: 25px;
+        z-index: 3;
+        transform: rotate(180deg);
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .max_temperature{
+        font-size: 20px;
+        color: #fff;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .min_temperature{
+        font-size: 20px;
+        color: #fff;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .now_temperature{
+        display: flex;
+    }
+    .temperature_degree{
+        font-size: 140px;
+        color: #fff;
+   
+    }
+    .degree{
+        font-size: 75px;
+        color: #fff;
+        margin-top: 10px;
+    }
+    .Celsiusdegrees{
+        font-size: 40px;
+        color: #fff;
+        margin-top: 90px;
+    }
+    .section2-right{
+        width:30%;
+        text-align: right;
+        margin-top: 150px;
+    }
+    .subscribe{
+        font-size: 15px;
+        color: #fff;
+
+        cursor: pointer;
+    }
+    .subscribe-icon{
+        background-image: url('../images/email.png');
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        float: right;
+        cursor: pointer;
+    }
+
+
+}

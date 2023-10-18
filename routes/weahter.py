@@ -7,7 +7,7 @@ weather_bp = Blueprint("weather_bp", __name__)
 
 load_dotenv()
 weather_api_key = os.getenv("weather_api_key")
-TIME_INTERVAL = 3
+TIME_INTERVAL = 6
 LOCATION_LIST_API = [
     "宜蘭縣",
     "花蓮縣",
@@ -48,7 +48,6 @@ def get_weather():
             location_name_api = location_name_api.replace(
                 char, LOCATION_NAME_MAPPING_API[char]
             )
-    print(location_name_api)
     if location_name_api not in LOCATION_LIST_API:
         message = "Please pass valiate location"
         return jsonify({"error": True, "message": message}), 400
@@ -65,6 +64,12 @@ def get_weather():
     response_data["data"].append({"location": location_name, "weatherElement": []})
     weather_status = result_weather_status["records"]["location"]
     current_temperature = result_current_temp["records"]["locations"][0]["location"]
+
+    if (
+        len(weather_status[0]["weatherElement"][0]["time"]) == 0
+        or len(current_temperature[0]["weatherElement"][0]["time"]) == 0
+    ):
+        return jsonify({"success": True, "data": None})
 
     elements_with_unit = ["PoP", "MinT", "MaxT", "T"]
     elements_with_valueId = ["Wx"]
@@ -87,7 +92,6 @@ def get_weather():
         response_data["data"][0]["weatherElement"].append(status_list)
 
     for status in current_temperature[0]["weatherElement"]:
-        print(status["time"][0])
         status_list = {
             "code": status["elementName"],
             "value": status["time"][0]["elementValue"][0]["value"],
@@ -109,18 +113,13 @@ def get_weather_status(location_name):
         payload = {
             "Authorization": weather_api_key,
             "locationName": location_name,
-            "timeFrom": datetime.now().strftime("%Y-%m-%dT%H:00:00"),
             "timeTo": (datetime.now() + timedelta(hours=TIME_INTERVAL)).strftime(
                 "%Y-%m-%dT%H:00:00"
             ),
         }
-        # payload = json.dumps(payload).encode("utf-8")
-        # print(payload)
         response = requests.get(api_url, params=payload)
-        # print(response.status_code)
         response = response.json()
 
-        # tmp: throw error
         return response
 
     except Exception as error:
@@ -135,7 +134,6 @@ def get_current_temp(location_name):
         payload = {
             "Authorization": weather_api_key,
             "locationName": location_name,
-            "timeFrom": datetime.now().strftime("%Y-%m-%dT%H:00:00"),
             "timeTo": (datetime.now() + timedelta(hours=TIME_INTERVAL)).strftime(
                 "%Y-%m-%dT%H:00:00"
             ),
@@ -144,7 +142,6 @@ def get_current_temp(location_name):
         response = requests.get(api_url, params=payload)
         response = response.json()
 
-        # tmp: throw error
         return response
 
     except Exception as error:
