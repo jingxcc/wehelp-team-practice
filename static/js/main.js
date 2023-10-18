@@ -184,3 +184,14 @@ const deleteEpaper = async() => {
         throw (error)
     }   
 }
+
+
+// ----- add click event -----
+let// 
+subscribeBtn = document.querySelector("."),
+updateBtn = document.querySelector("."),
+deleteBtn = document.querySelector(".");
+
+subscribeBtn.addEventListener("click", subscribeEpaper());
+updateBtn.addEventListener("click", updateEpaper());
+deleteBtn.addEventListener("click", deleteEpaper());
