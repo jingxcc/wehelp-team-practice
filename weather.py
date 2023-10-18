@@ -124,7 +124,7 @@ def get_weather_status(location_name):
 
     except Exception as error:
         print(error)
-        message = "Open Weahter API Error"
+        message = "Open Weather API Error"
         return {"error": True, "message": message}
 
 
@@ -146,5 +146,5 @@ def get_current_temp(location_name):
 
     except Exception as error:
         print(error)
-        message = "Open Weahter API Error"
+        message = "Open Weather API Error"
         return {"error": True, "message": message}
