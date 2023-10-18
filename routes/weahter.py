@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 weather_bp = Blueprint("weather_bp", __name__)
 
 load_dotenv()
-WEATHER_AUTH = os.getenv("WEATHER_AUTH")
+weather_api_key = os.getenv("weather_api_key")
 TIME_INTERVAL = 3
 LOCATION_LIST_API = [
     "宜蘭縣",
@@ -107,7 +107,7 @@ def get_weather_status(location_name):
     try:
         api_url = f"https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001"
         payload = {
-            "Authorization": WEATHER_AUTH,
+            "Authorization": weather_api_key,
             "locationName": location_name,
             "timeFrom": datetime.now().strftime("%Y-%m-%dT%H:00:00"),
             "timeTo": (datetime.now() + timedelta(hours=TIME_INTERVAL)).strftime(
@@ -133,7 +133,7 @@ def get_current_temp(location_name):
     try:
         api_url = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-089"
         payload = {
-            "Authorization": WEATHER_AUTH,
+            "Authorization": weather_api_key,
             "locationName": location_name,
             "timeFrom": datetime.now().strftime("%Y-%m-%dT%H:00:00"),
             "timeTo": (datetime.now() + timedelta(hours=TIME_INTERVAL)).strftime(
