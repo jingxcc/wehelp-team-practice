@@ -1,7 +1,9 @@
 import re
+import os
 
 from flask import Blueprint, jsonify, request, current_app
 import requests
+from dotenv import load_dotenv
 
 e_paper = Blueprint('e_paper', __name__)
 
@@ -17,10 +19,10 @@ def check_input(city, webhook_url):
         return False
 
 def parse_weather_description(data):
-    weather_brief_comment = data['cwaopendata']['dataset']['parameterSet']['parameter'][0]['parameterValue']
-    weather_today = data['cwaopendata']['dataset']['parameterSet']['parameter'][1]['parameterValue']
-    weather_tomorrow = data['cwaopendata']['dataset']['parameterSet']['parameter'][2]['parameterValue']
-    return (weather_brief_comment, weather_today, weather_tomorrow)
+    weather_comment = []
+    for i in range(len(data['cwaopendata']['dataset']['parameterSet']['parameter'])):
+        weather_comment.append(data['cwaopendata']['dataset']['parameterSet']['parameter'][i]['parameterValue'])
+    return weather_comment
 
 # models
 def add_subscriber(city, webhook_url):
@@ -36,7 +38,7 @@ def add_subscriber(city, webhook_url):
         return {'ok': True}, 200
     except:
         cnx_pool.release_connection_and_cursor(conn, cursor)
-        return {'error': True, 'message': 'invalid city or webhook_url'}, 400
+        return {'error': True, 'message': 'this webhook url has already been subscribed'}, 400
     
 def update_subscribe_city(city, webhook_url):
     try:
@@ -65,19 +67,20 @@ def del_subscriber(webhook_url):
     return {'ok': True}, 200
     
 def send_e_paper_subscription_notification(city, webhook_url, state):
-    if state == 'add new subscriber':
-        request_body = {
-        'username': '天氣小幫手\U0001F436',
-        'content':f'哈囉~ 感謝您訂閱天氣小幫手，在每天早上8推播{city}的天氣資訊給您。以下是今天的天氣資訊，那我們明天見囉:sparkles:'
-        }
-    elif state == 'update subscribe city':
-        request_body = {
-        'username': '天氣小幫手\U0001F436',
-        'content':f'訂閱的城市更新囉！之後每天早上8推播{city}的天氣資訊給您。以下是今天的天氣資訊，那我們明天見囉:sparkles:'
-        }
+    state_content_map = {
+        'add': f'哈囉~ 感謝您訂閱天氣小幫手，在每天早上8推播:four_leaf_clover:{city}:four_leaf_clover:的天氣資訊給您。\n以下是今天的天氣資訊，那我們明天見囉:sparkles:',
+        'update': f'訂閱的城市更新囉！之後每天早上8推播:four_leaf_clover:{city}:four_leaf_clover:的天氣資訊給您。\n以下是今天的天氣資訊，那我們明天見囉:sparkles:',
+        'delete': f'已取消訂閱天氣小幫手，期待下次與您相見:sparkles:'
+    }
+    request_body = {
+    'username': '天氣小幫手\U0001F436',
+    'content': state_content_map[state]
+    }
     r = requests.post(webhook_url, json = request_body)
   
 def get_weather_info(city):
+    load_dotenv()
+    weather_api_key = os.getenv('weather_api_key')
     api_url_dic = {
         '台北': 'https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-C0032-009',
         '新北': 'https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-C0032-010',
@@ -88,7 +91,7 @@ def get_weather_info(city):
     }
     url = api_url_dic[city]
     params = {
-    "Authorization": "CWA-28A64111-004B-4509-A905-C344C33D34C3",
+    "Authorization": weather_api_key,
     "downloadType": "WEB",
     "format": "JSON"
     }
@@ -101,17 +104,13 @@ def send_weather_info(weather_comment, webhook_url):
     'username': '天氣小幫手\U0001F436',
     'embeds': [{'title': weather_comment[0], 'color': '14177041'}],
     }
-    weather_today = {
-        'username': '天氣小幫手\U0001F436',
-        'content': weather_comment[1]
-    }
-    weather_tomorrow = {
-        'username': '天氣小幫手\U0001F436',
-        'content': weather_comment[2]
-    }
-    message_order = [brief_comment, weather_today, weather_tomorrow]
-    for message in message_order:
-        r = requests.post(webhook_url, json = message)
+    r = requests.post(webhook_url, json = brief_comment)
+    for i in range(1, len(weather_comment)):
+        weather_detail = {
+            'username': '天氣小幫手\U0001F436',
+            'content': weather_comment[i]
+        }
+        r = requests.post(webhook_url, json = weather_detail)
 
 # controllers
 @e_paper.route('/api/e_paper', methods = ['POST', 'PATCH'])
@@ -130,7 +129,7 @@ def subscribe_e_paper():
             return jsonify(response), status_code
         weather_info = get_weather_info(city)
         weather_comment = parse_weather_description(weather_info)
-        send_e_paper_subscription_notification(city, webhook_url, 'add new subscriber')
+        send_e_paper_subscription_notification(city, webhook_url, 'add')
         send_weather_info(weather_comment, webhook_url)
         return jsonify(response), status_code
 
@@ -140,7 +139,7 @@ def subscribe_e_paper():
             return jsonify(response), status_code
         weather_info = get_weather_info(city)
         weather_comment = parse_weather_description(weather_info)
-        send_e_paper_subscription_notification(city, webhook_url, 'update subscribe city')
+        send_e_paper_subscription_notification(city, webhook_url, 'update')
         send_weather_info(weather_comment, webhook_url)
         return jsonify(response), status_code
 
@@ -149,4 +148,5 @@ def del_subscribe_info():
     data = request.get_json()
     webhook_url = data.get('webhookUrl')
     response, status_code = del_subscriber(webhook_url)
+    send_e_paper_subscription_notification(None, webhook_url, 'delete')
     return response, status_code

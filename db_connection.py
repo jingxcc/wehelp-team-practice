@@ -22,7 +22,7 @@ class DB_Connector:
 		}
 		self.cnx_pool = mysql.connector.pooling.MySQLConnectionPool(
 			pool_name = 'conn_pool',
-			pool_size = 3,
+			pool_size = 5,
 			**db_config
 		)
 
