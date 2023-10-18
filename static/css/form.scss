@@ -30,11 +30,10 @@ h1 {
   margin-bottom: 20px;
   margin-top: 10px;
 }
-
 .icon-wrapper .icon {
   display: block;
   font-size: 100px;
-  background: linear-gradient(45deg, #ffe658, #04cefc, #ff1b9c, #adfff7);
+  background: linear-gradient(45deg, #ffe658, #04cefc, #ff1b9c, #adfff7); 
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -62,7 +61,7 @@ h1 {
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 13.3px;
+  line-height: 13.3px; 
 }
 
 .yourdc {
@@ -71,7 +70,7 @@ h1 {
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 13.3px;
+  line-height: 13.3px; 
   width: 100%;
   align-self: center;
   text-align: center;
@@ -84,19 +83,17 @@ h1 {
   justify-content: center;
   margin-bottom: 10px;
 }
-
 .input-wrapper input {
   height: 25px;
   width: 282px;
   color: #494949;
-  border: 2px solid #c2c2c2;
-  border-radius: 5px;
-  padding: 15px 10px;
-  font-size: 18px;
+  border: 2px solid #c2c2c2; 
+  border-radius: 5px; 
+  padding: 15px 10px; 
+  font-size: 18px; 
 }
-
 .input-wrapper input:focus {
-  border: 2px solid #383838;
+  border: 2px solid #383838; 
 }
 
 .good {
@@ -106,7 +103,6 @@ h1 {
   justify-content: center;
   margin-bottom: 10px;
 }
-
 .good .select-form {
   width: 130px;
   position: absolute;
@@ -130,11 +126,11 @@ h1 {
   justify-content: center;
   color: #4d4d4d;
   font-style: normal;
-  line-height: 13.3px;
+  line-height: 13.3px; 
 }
 
-.drop-down {
-  display: none;
+.drop-down{
+display: none;
 }
 
 .opt:hover,
@@ -147,7 +143,7 @@ h1 {
   opacity: 0;
 }
 
-.select-form:hover .drop-down {
+.select-form:hover .drop-down{
   display: block;
 }
 
@@ -216,7 +212,6 @@ h1 {
   align-items: center;
   justify-content: center;
 }
-
 .subscribe-btn p {
   padding: 10px 40px;
   align-items: center;
@@ -232,7 +227,6 @@ h1 {
   cursor: pointer;
   width: 400px;
 }
-
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -248,4 +242,4 @@ h1 {
   background-size: 200% 800%;
   background-size: 800% 800%;
   animation: gradient 5s ease-in-out infinite;
-} /*# sourceMappingURL=form.css.map */
+}/*# sourceMappingURL=form.css.map */
