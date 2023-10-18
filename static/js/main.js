@@ -13,6 +13,7 @@ const getWeatherInfo = async () => {
     }
 }
 
+
 // ----- set global variables -----
 var// 
 weatherInfo = getWeatherInfo(),
@@ -40,6 +41,7 @@ weatherIconDict = {
     "有霧": "day-fog.png",
     "下雪": "day-snowing.png"
 };
+
 
 // ----- Change weather as location changes -----
 const changeTextContent = (cssSelector, content) => {
@@ -77,6 +79,7 @@ const changeWeather = (cityChosen) => {
     changeTextContent(".temperature_degree", weatherInfo[cityIndex[cityChosen]][5]["value"]);
 }
 
+
 // ----- set default weather information in Taipei ----
 changeWeather("臺北市");
 
@@ -110,11 +113,9 @@ const subscribeEpaper = async() => {
         if (!response.ok) {
             console.log(result.description);
             throw("Subscription failed.");
-            // render fail msg
         };
 
         return("Subscription succeeded.")
-        // render succes msg
     }
     catch(error) {
         console.log(error);
@@ -143,11 +144,9 @@ const updateEpaper = async() => {
         if (!response.ok) {
             console.log(result.description);
             throw("Update failed.");
-            // render fail msg
         };
 
         return("Update succeeded.")
-        // render succes msg
     }
     catch(error) {
         console.log(error);
@@ -173,11 +172,9 @@ const deleteEpaper = async() => {
         if (!response.ok) {
             console.log(result.description);
             throw("Delete failed.");
-            // render fail msg
         };
 
         return("Delete succeeded.")
-        // render succes msg
     }
     catch(error) {
         console.log(error);
@@ -186,12 +183,12 @@ const deleteEpaper = async() => {
 }
 
 
-// ----- add click event -----
+// ----- add click event for Epaper-----
 let// 
 subscribeBtn = document.querySelector("."),
 updateBtn = document.querySelector("."),
 deleteBtn = document.querySelector(".");
 
-subscribeBtn.addEventListener("click", subscribeEpaper());
-updateBtn.addEventListener("click", updateEpaper());
-deleteBtn.addEventListener("click", deleteEpaper());
+subscribeBtn.addEventListener("click", subscribeEpaper);
+updateBtn.addEventListener("click", updateEpaper);
+deleteBtn.addEventListener("click", deleteEpaper);
