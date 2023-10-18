@@ -47,6 +47,7 @@ const changeTextContent = (cssSelector, content) => {
     element.textContent = content;
 };
 
+
 const changeWeather = (cityChosen) => {
     // update cute dog picture
     backgroundImg = document.querySelector(".background-image");
@@ -89,18 +90,18 @@ locationOptions.forEach(option => {
 });
 
 
-// ----- subscribe function -----
-const subscribe = async() => {
+// ----- e-paper: subscribe function -----
+const subscribeEpaper = async() => {
     let//
     discordEndpoint = document.querySelector("").value,
     locationForSubcription = document.querySelector("").value;
 
     try {
-        let response = await fetch("", {
+        let response = await fetch("/api/e_paper", {
             method: "POST",
             body: JSON.stringify({
-                "discordEndpoint": discordEndpoint,
-                "locationForSubcription": locationForSubcription
+                "city": locationForSubcription,
+                "webhookUrl": discordEndpoint
             })
         });
 
@@ -121,3 +122,65 @@ const subscribe = async() => {
     }
 }
 
+
+// ----- e-paper: update function -----
+const updateEpaper = async() => {
+    let//
+    discordEndpoint = document.querySelector("").value,
+    locationForSubcription = document.querySelector("").value;
+
+    try {
+        let response = await fetch("/api/e_paper", {
+            method: "PATCH",
+            body: JSON.stringify({
+                "city": locationForSubcription,
+                "webhookUrl": discordEndpoint
+            })
+        });
+
+        let result = await response.json();
+
+        if (!response.ok) {
+            console.log(result.description);
+            throw("Update failed.");
+            // render fail msg
+        };
+
+        return("Update succeeded.")
+        // render succes msg
+    }
+    catch(error) {
+        console.log(error);
+        throw (error)
+    }   
+}
+
+
+// ----- e-paper: delete function -----
+const deleteEpaper = async() => {
+    let discordEndpoint = document.querySelector("").value;
+
+    try {
+        let response = await fetch("/api/e_paper", {
+            method: "DELETE",
+            body: JSON.stringify({
+                "webhookUrl": discordEndpoint
+            })
+        });
+
+        let result = await response.json();
+
+        if (!response.ok) {
+            console.log(result.description);
+            throw("Delete failed.");
+            // render fail msg
+        };
+
+        return("Delete succeeded.")
+        // render succes msg
+    }
+    catch(error) {
+        console.log(error);
+        throw (error)
+    }   
+}
