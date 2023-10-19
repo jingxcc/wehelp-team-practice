@@ -99,7 +99,7 @@ locationOptions.forEach(option => {
 const updateEpaper = async() => {
     let//
     classArray = document.querySelector(".wrapper-1").getAttribute("class").split(" "),
-    subscribeAlready = "wrapper-hidden" in classArray;
+    subscribeAlready = classArray.includes("wrapper-hidden");
 
     // recored a new subscriber
     if (!subscribeAlready) {
@@ -203,7 +203,7 @@ const updateEpaper = async() => {
 const deleteEpaper = async() => {
     let//
     classArray = document.querySelector(".wrapper-1").getAttribute("class").split(" "),
-    subscribeAlready = "wrapper-hidden" in classArray;
+    subscribeAlready = classArray.includes("wrapper-hidden");
 
     if (subscribeAlready) {
         let discordEndpoint = document.querySelector(".user-input").value;
@@ -233,8 +233,10 @@ const deleteEpaper = async() => {
 
 // ----- add click event for Epaper-----
 let// 
-subscribeBtn = document.querySelector(".subscribe-btn p"),
+subscribeBtn1 = document.querySelectorAll(".subscribe-btn p")[0],
+subscribeBtn2 = document.querySelectorAll(".subscribe-btn p")[1],
 deleteBtn = document.querySelector(".unsubscribe-btn p");
 
-subscribeBtn.addEventListener("click", updateEpaper);
+subscribeBtn1.addEventListener("click", updateEpaper);
+subscribeBtn2.addEventListener("click", updateEpaper);
 deleteBtn.addEventListener("click", deleteEpaper);
