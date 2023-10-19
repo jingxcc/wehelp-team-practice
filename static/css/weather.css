@@ -891,6 +891,7 @@
       flex-direction: column;
       display: flex;
       width: 70%;
+      visibility: hidden;
   }
   
   
@@ -1190,6 +1191,7 @@
           flex-direction: column;
           display: flex;
           width: 70%;
+          visibility: hidden;
       }
       
       
