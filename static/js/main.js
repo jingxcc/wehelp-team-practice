@@ -24,15 +24,56 @@ dogPics = {
     "台南市": "background-5.jpg",
     "高雄市": "background-6.jpg"
 },
-weatherIconDict = {
-    "晴天": "day-clear.png",
-    "陰天": "day-cloudy.png",
-    "雨天": "day-partially-with-rain.png",
-    "雷雨": "day-thunderstorm.png",
-    "有霧": "day-fog.png",
-    "下雪": "day-snowing.png"
+weatherIconsDay = {
+    "isClear": "day-clear.png",
+    "isCloudy": "day-cloudy.png",
+    "isPartiallyClearWithRain": "day-partially-with-rain.png",
+    "isThunderstorm": "day-thunderstorm.png",
+    "isFog": "day-fog.png",
+    "isSnowing": "day-snowing.png",
+    "isCloudyFog": "day-cloudy-fog.png"
+},
+weatherIconsNight = {
+    "isClear": "night-clear.png",
+    "isCloudy": "night-cloudy.png",
+    "isPartiallyClearWithRain": "night-partially-with-rain.png",
+    "isThunderstorm": "night-thunderstorm.png",
+    "isFog": "night-fog.png",
+    "isSnowing": "night-snowing.png",
+    "isCloudyFog": "night-cloudy-fog.png"
 };
-// 還要再補上小太陽的切換依據
+
+
+// ----- create getWeatherImg function -----
+var weatherTypes = {
+    '15, 16, 17, 18, 21, 22, 33, 34, 35, 36, 41': "isThunderstorm",
+    '1':"isClear", 
+    '25, 26, 27, 28': "isCloudyFog",
+    '2, 3, 4, 5, 6, 7': "isCloudy",
+    '24': "isFog",
+    '8, 9, 10, 11, 12, 13, 14, 19, 20, 29, 30, 31, 32, 38, 39': "isPartiallyClearWithRain",
+    '23, 37, 42': "isSnowing"
+};
+
+const getWeatherImg = (wxValueID) => {
+    let//
+    weatherImg,
+    weatherIconsRef = weatherIconsDay,
+    currentTime = new Date(),
+    hourOfTime = currentTime.getHours();
+
+    if (hourOfTime >= 18) {
+        weatherIconsRef = weatherIconsNight;
+    };
+    
+    Object.keys(weatherTypes).forEach(key => {
+        let keyArray = key.split(", ");
+        if (keyArray.includes(wxValueID)) {
+            weatherImg = weatherIconsRef[weatherTypes[key]];
+        }
+    })
+    return weatherImg
+}
 
 
 // ----- Change weather as location changes -----
@@ -60,16 +101,21 @@ const changeWeather = async (cityChosen) => {
     // update time_part
     let currentTime = new Date();
     changeTextContent(".date", `${currentTime.getMonth()+1}/${currentTime.getDate()}`);
-    changeTextContent(".time", `${currentTime.getHours()} : ${currentTime.getMinutes()}`);
+    let min = currentTime.getMinutes();
+    if (min < 10) {
+        min = "0" + min;
+    }
+    changeTextContent(".time", `${currentTime.getHours()} : ${min}`);
 
     // update rainpercentage
     changeTextContent(".rainpercentage", weatherElement[1]["value"]);
 
     // update weather
     let//
-    weatherIcon = document.querySelector(".weathericon");
-    weatherIcon.style.backgroundImg = `url('../weather_icon/${weatherIconDict[weatherElement[0]["value"]]}')`;
-    
+    weatherIcon = document.querySelector(".weathericon"),
+    weatherImg = getWeatherImg(weatherElement[0]["valueId"]);
+    weatherIcon.style.backgroundImage = `url("static/weather_icon/${weatherImg}")`;    
+
     changeTextContent(".weathertext", weatherElement[0]["value"]);
     changeTextContent(".comfort", weatherElement[3]["value"]);
 
