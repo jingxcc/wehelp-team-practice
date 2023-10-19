@@ -68,11 +68,11 @@ const changeWeather = async (cityChosen) => {
     weatherIcon.style.backgroundImg = `url('../weather_icon/${weatherIconDict[weatherElement[0]["value"]]}')`;
     
     changeTextContent(".weathertext", weatherElement[0]["value"]);
-    changeTextContent(".comfort", weatherElement[2]["value"]);
+    changeTextContent(".comfort", weatherElement[3]["value"]);
 
     // update day_temperature
     changeTextContent(".max_temperature", weatherElement[4]["value"]);
-    changeTextContent(".min_temperature", weatherElement[3]["value"]);
+    changeTextContent(".min_temperature", weatherElement[2]["value"]);
 
     // update now_temperature
     changeTextContent(".temperature_degree", weatherElement[5]["value"]);
