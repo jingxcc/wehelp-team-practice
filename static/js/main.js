@@ -83,7 +83,11 @@ const changeWeather = async (cityChosen) => {
     // update time_part
     let currentTime = new Date();
     changeTextContent(".date", `${currentTime.getMonth()+1}/${currentTime.getDate()}`);
-    changeTextContent(".time", `${currentTime.getHours()} : ${currentTime.getMinutes()}`);
+    let min = currentTime.getMinutes();
+    if (min < 10) {
+        min = "0" + min;
+    }
+    changeTextContent(".time", `${currentTime.getHours()} : ${min}`);
 
     // update rainpercentage
     changeTextContent(".rainpercentage", weatherElement[1]["value"]);
