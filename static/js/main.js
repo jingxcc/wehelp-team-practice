@@ -117,7 +117,7 @@ const updateEpaper = async() => {
             let result = await response.json();
 
             if (!response.ok) {
-                console.log(result.description);
+                // console.log(result.description);
                 throw "Subscription failed.";
             };
 
@@ -129,32 +129,35 @@ const updateEpaper = async() => {
         }
     }
 
+
     // modify subscriber info
-    let//
-    discordEndpoint = document.querySelector(".user-input").value,
-    locationForSubcription = document.querySelector(".sub-select-btn").textContent;
+    if (notYetSubscribe) {
+        let//
+        discordEndpoint = document.querySelector(".user-input").value,
+        locationForSubcription = document.querySelector(".sub-select-btn").textContent;
 
-    try {
-        let response = await fetch("/api/e_paper", {
-            method: "PATCH",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                "city": locationForSubcription,
-                "webhookUrl": discordEndpoint
-            })
-        });
+        try {
+            let response = await fetch("/api/e_paper", {
+                method: "PATCH",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    "city": locationForSubcription,
+                    "webhookUrl": discordEndpoint
+                })
+            });
 
-        let result = await response.json();
+            let result = await response.json();
 
-        if (!response.ok) {
-            console.log(result.description);
-            throw "Subscription failed.";
-        };
+            if (!response.ok) {
+                // console.log(result.description);
+                throw "Subscription failed.";
+            };
 
-        return "Subscription succeeded."
-    }
-    catch(error) {
-        throw error 
+            return "Subscription succeeded."
+        }
+        catch(error) {
+            throw error 
+        }
     }
 }
 
@@ -216,7 +219,7 @@ const deleteEpaper = async() => {
             let result = await response.json();
 
             if (!response.ok) {
-                console.log(result.description);
+                // console.log(result.description);
                 throw "Delete failed.";
             };
 
