@@ -1,9 +1,7 @@
 import re
-import os
 
 from flask import Blueprint, jsonify, request, current_app
 import requests
-from dotenv import load_dotenv
 
 e_paper = Blueprint('e_paper', __name__)
 
@@ -18,11 +16,9 @@ def check_input(city, webhook_url):
     else:
         return False
 
-def parse_weather_description(data):
-    weather_comment = []
-    for i in range(len(data['cwaopendata']['dataset']['parameterSet']['parameter'])):
-        weather_comment.append(data['cwaopendata']['dataset']['parameterSet']['parameter'][i]['parameterValue'])
-    return weather_comment
+def convert_string_to_lst(lst):
+    string = lst.split(',')
+    return string
 
 # models
 def add_subscriber(city, webhook_url):
@@ -65,6 +61,17 @@ def del_subscriber(webhook_url):
     conn.commit()
     cnx_pool.release_connection_and_cursor(conn, cursor)
     return {'ok': True}, 200
+
+def get_weather_comment_from_db(city):
+    try:
+        cnx_pool = current_app.config['cnx_pool']
+        conn, cursor = cnx_pool.get_connection_and_cursor()
+    except:
+        cnx_pool.release_connection_and_cursor(conn, cursor)
+        return {'error': True, 'message': 'cannot connect to database'}, 500
+    cursor.execute('SELECT comment FROM weather_comment WHERE city=%s', (city,))
+    record = cursor.fetchone()
+    return record
     
 def send_e_paper_subscription_notification(city, webhook_url, state):
     state_content_map = {
@@ -77,29 +84,8 @@ def send_e_paper_subscription_notification(city, webhook_url, state):
     'content': state_content_map[state]
     }
     r = requests.post(webhook_url, json = request_body)
-  
-def get_weather_info(city):
-    load_dotenv()
-    weather_api_key = os.getenv('weather_api_key')
-    api_url_dic = {
-        '台北': 'https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-C0032-009',
-        '新北': 'https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-C0032-010',
-        '桃園': 'https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-C0032-022',
-        '台中': 'https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-C0032-021',
-        '台南': 'https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-C0032-016',
-        '高雄': 'https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-C0032-017'
-    }
-    url = api_url_dic[city]
-    params = {
-    "Authorization": weather_api_key,
-    "downloadType": "WEB",
-    "format": "JSON"
-    }
-    response = requests.get(url, params=params)
-    data = response.json()
-    return data
 
-def send_weather_info(weather_comment, webhook_url):
+def send_weather_comment(weather_comment, webhook_url):
     brief_comment = {
     'username': '天氣小幫手\U0001F436',
     'embeds': [{'title': weather_comment[0], 'color': '14177041'}],
@@ -127,20 +113,20 @@ def subscribe_e_paper():
         response, status_code = add_subscriber(city, webhook_url)
         if status_code != 200:
             return jsonify(response), status_code
-        weather_info = get_weather_info(city)
-        weather_comment = parse_weather_description(weather_info)
+        weather_comment = get_weather_comment_from_db(city)
+        weather_comment = convert_string_to_lst(weather_comment[0])
         send_e_paper_subscription_notification(city, webhook_url, 'add')
-        send_weather_info(weather_comment, webhook_url)
+        send_weather_comment(weather_comment, webhook_url)
         return jsonify(response), status_code
 
     elif request.method == 'PATCH':
         response, status_code = update_subscribe_city(city, webhook_url)
         if status_code != 200:
             return jsonify(response), status_code
-        weather_info = get_weather_info(city)
-        weather_comment = parse_weather_description(weather_info)
+        weather_comment = get_weather_comment_from_db(city)
+        weather_comment = convert_string_to_lst(weather_comment[0])
         send_e_paper_subscription_notification(city, webhook_url, 'update')
-        send_weather_info(weather_comment, webhook_url)
+        send_weather_comment(weather_comment, webhook_url)
         return jsonify(response), status_code
 
 @e_paper.route('/api/e_paper', methods = ['DELETE'])
