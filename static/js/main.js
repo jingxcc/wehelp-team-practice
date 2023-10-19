@@ -24,7 +24,7 @@ dogPics = {
     "台南市": "background-5.jpg",
     "高雄市": "background-6.jpg"
 },
-weatherIconDict = {
+weatherIconsDay = {
     "isClear": "day-clear.png",
     "isCloudy": "day-cloudy.png",
     "isPartiallyClearWithRain": "day-partially-with-rain.png",
@@ -32,6 +32,15 @@ weatherIconDict = {
     "isFog": "day-fog.png",
     "isSnowing": "day-snowing.png",
     "isCloudyFog": "day-cloudy-fog.png"
+},
+weatherIconsNight = {
+    "isClear": "night-clear.png",
+    "isCloudy": "night-cloudy.png",
+    "isPartiallyClearWithRain": "night-partially-with-rain.png",
+    "isThunderstorm": "night-thunderstorm.png",
+    "isFog": "night-fog.png",
+    "isSnowing": "night-snowing.png",
+    "isCloudyFog": "night-cloudy-fog.png"
 };
 
 
@@ -47,11 +56,20 @@ var weatherTypes = {
 };
 
 const getWeatherImg = (wxValueID) => {
-    let weatherImg;
+    let//
+    weatherImg,
+    weatherIconsRef = weatherIconsDay,
+    currentTime = new Date(),
+    hourOfTime = currentTime.getHours();
+
+    if (hourOfTime >= 18) {
+        weatherIconsRef = weatherIconsNight;
+    };
+    
     Object.keys(weatherTypes).forEach(key => {
         let keyArray = key.split(", ");
         if (keyArray.includes(wxValueID)) {
-            weatherImg = weatherIconDict[weatherTypes[key]];
+            weatherImg = weatherIconsRef[weatherTypes[key]];
         }
     })
     return weatherImg
