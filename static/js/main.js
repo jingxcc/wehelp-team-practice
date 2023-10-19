@@ -51,7 +51,6 @@ const getWeatherImg = (wxValueID) => {
     Object.keys(weatherTypes).forEach(key => {
         let keyArray = key.split(", ");
         if (keyArray.includes(wxValueID)) {
-            console.log(`getWeatherImg: ${weatherIconDict[weatherTypes[key]]}`);
             weatherImg = weatherIconDict[weatherTypes[key]];
         }
     })
@@ -93,9 +92,7 @@ const changeWeather = async (cityChosen) => {
     let//
     weatherIcon = document.querySelector(".weathericon"),
     weatherImg = getWeatherImg(weatherElement[0]["valueId"]);
-    weatherIcon.style.backgroundImage = `url("static/weather_icon/${weatherImg}")`;
-    console.log(`changeWeather: ${weatherImg}`);
-    
+    weatherIcon.style.backgroundImage = `url("static/weather_icon/${weatherImg}")`;    
 
     changeTextContent(".weathertext", weatherElement[0]["value"]);
     changeTextContent(".comfort", weatherElement[3]["value"]);
