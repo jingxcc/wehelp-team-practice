@@ -117,14 +117,12 @@ const updateEpaper = async() => {
             let result = await response.json();
 
             if (!response.ok) {
-                // console.log(result.description);
                 throw "Subscription failed.";
             };
 
             return "Subscription succeeded."
         }
         catch(error) {
-            console.log(error);
             throw error
         }
     }
@@ -149,7 +147,6 @@ const updateEpaper = async() => {
             let result = await response.json();
 
             if (!response.ok) {
-                // console.log(result.description);
                 throw "Subscription failed.";
             };
 
@@ -219,14 +216,12 @@ const deleteEpaper = async() => {
             let result = await response.json();
 
             if (!response.ok) {
-                // console.log(result.description);
                 throw "Delete failed.";
             };
 
             return "Delete succeeded.";
         }
         catch(error) {
-            // console.log(error);
             throw error
         }   
     }
