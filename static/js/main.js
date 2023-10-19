@@ -46,6 +46,9 @@ const changeWeather = async (cityChosen) => {
     // fetch location weather info
     let weatherElement = await getWeatherInfo(cityChosen);
 
+    const sectionLeft = document.querySelector(".section2-left");
+    sectionLeft.style.visibility = "initial";
+
     // update location
     changeTextContent(".city", cityChosen);
 
@@ -96,10 +99,10 @@ locationOptions.forEach(option => {
 const updateEpaper = async() => {
     let//
     classArray = document.querySelector(".wrapper-1").getAttribute("class").split(" "),
-    notYetSubscribe = "wrapper-display" in classArray;
+    subscribeAlready = classArray.includes("wrapper-hidden");
 
     // recored a new subscriber
-    if (notYetSubscribe) {
+    if (!subscribeAlready) {
         let//
         discordEndpoint = document.querySelector(".user-input").value,
         locationForSubcription = document.querySelector(".sub-select-btn").textContent;
@@ -117,44 +120,44 @@ const updateEpaper = async() => {
             let result = await response.json();
 
             if (!response.ok) {
-                console.log(result.description);
                 throw "Subscription failed.";
             };
 
             return "Subscription succeeded."
         }
         catch(error) {
-            console.log(error);
             throw error
         }
     }
 
+
     // modify subscriber info
-    let//
-    discordEndpoint = document.querySelector(".user-input").value,
-    locationForSubcription = document.querySelector(".sub-select-btn").textContent;
+    if (subscribeAlready) {
+        let//
+        discordEndpoint = document.querySelector(".user-input").value,
+        locationForSubcription = document.querySelector(".sub-select-btn").textContent;
 
-    try {
-        let response = await fetch("/api/e_paper", {
-            method: "PATCH",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                "city": locationForSubcription,
-                "webhookUrl": discordEndpoint
-            })
-        });
+        try {
+            let response = await fetch("/api/e_paper", {
+                method: "PATCH",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    "city": locationForSubcription,
+                    "webhookUrl": discordEndpoint
+                })
+            });
 
-        let result = await response.json();
+            let result = await response.json();
 
-        if (!response.ok) {
-            console.log(result.description);
-            throw "Subscription failed.";
-        };
+            if (!response.ok) {
+                throw "Subscription failed.";
+            };
 
-        return "Subscription succeeded."
-    }
-    catch(error) {
-        throw error 
+            return "Subscription succeeded."
+        }
+        catch(error) {
+            throw error 
+        }
     }
 }
 
@@ -200,10 +203,10 @@ const updateEpaper = async() => {
 const deleteEpaper = async() => {
     let//
     classArray = document.querySelector(".wrapper-1").getAttribute("class").split(" "),
-    notYetSubscribe = "wrapper-display" in classArray;
+    subscribeAlready = classArray.includes("wrapper-hidden");
 
-    if (!notYetSubscribe) {
-        let discordEndpoint = document.querySelector("").value;
+    if (subscribeAlready) {
+        let discordEndpoint = document.querySelector(".user-input").value;
         try {
             let response = await fetch("/api/e_paper", {
                 method: "DELETE",
@@ -216,14 +219,12 @@ const deleteEpaper = async() => {
             let result = await response.json();
 
             if (!response.ok) {
-                console.log(result.description);
                 throw "Delete failed.";
             };
 
             return "Delete succeeded.";
         }
         catch(error) {
-            console.log(error);
             throw error
         }   
     }
@@ -232,8 +233,10 @@ const deleteEpaper = async() => {
 
 // ----- add click event for Epaper-----
 let// 
-subscribeBtn = document.querySelector(".subscribe-btn p"),
+subscribeBtn1 = document.querySelectorAll(".subscribe-btn p")[0],
+subscribeBtn2 = document.querySelectorAll(".subscribe-btn p")[1],
 deleteBtn = document.querySelector(".unsubscribe-btn p");
 
-subscribeBtn.addEventListener("click", updateEpaper);
+subscribeBtn1.addEventListener("click", updateEpaper);
+subscribeBtn2.addEventListener("click", updateEpaper);
 deleteBtn.addEventListener("click", deleteEpaper);
