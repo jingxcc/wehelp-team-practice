@@ -167,6 +167,7 @@ const updateEpaper = async () => {
       let result = await response.json();
 
       if (!response.ok) {
+        alert("Subscription failed");
         throw "Subscription failed.";
       }
 
