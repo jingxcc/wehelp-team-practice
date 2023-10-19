@@ -25,14 +25,38 @@ dogPics = {
     "高雄市": "background-6.jpg"
 },
 weatherIconDict = {
-    "晴天": "day-clear.png",
-    "陰天": "day-cloudy.png",
-    "雨天": "day-partially-with-rain.png",
-    "雷雨": "day-thunderstorm.png",
-    "有霧": "day-fog.png",
-    "下雪": "day-snowing.png"
+    "isClear": "day-clear.png",
+    "isCloudy": "day-cloudy.png",
+    "isPartiallyClearWithRain": "day-partially-with-rain.png",
+    "isThunderstorm": "day-thunderstorm.png",
+    "isFog": "day-fog.png",
+    "isSnowing": "day-snowing.png",
+    "isCloudyFog": "day-cloudy-fog.png"
 };
-// 還要再補上小太陽的切換依據
+
+
+// ----- create getWeatherImg function -----
+var weatherTypes = {
+    '15, 16, 17, 18, 21, 22, 33, 34, 35, 36, 41': "isThunderstorm",
+    '1':"isClear", 
+    '25, 26, 27, 28': "isCloudyFog",
+    '2, 3, 4, 5, 6, 7': "isCloudy",
+    '24': "isFog",
+    '8, 9, 10, 11, 12, 13, 14, 19, 20, 29, 30, 31, 32, 38, 39': "isPartiallyClearWithRain",
+    '23, 37, 42': "isSnowing"
+};
+
+const getWeatherImg = (wxValueID) => {
+    let weatherImg;
+    Object.keys(weatherTypes).forEach(key => {
+        let keyArray = key.split(", ");
+        if (keyArray.includes(wxValueID)) {
+            console.log(`getWeatherImg: ${weatherIconDict[weatherTypes[key]]}`);
+            weatherImg = weatherIconDict[weatherTypes[key]];
+        }
+    })
+    return weatherImg
+}
 
 
 // ----- Change weather as location changes -----
@@ -67,9 +91,12 @@ const changeWeather = async (cityChosen) => {
 
     // update weather
     let//
-    weatherIcon = document.querySelector(".weathericon");
-    weatherIcon.style.backgroundImg = `url('../weather_icon/${weatherIconDict[weatherElement[0]["value"]]}')`;
+    weatherIcon = document.querySelector(".weathericon"),
+    weatherImg = getWeatherImg(weatherElement[0]["valueId"]);
+    weatherIcon.style.backgroundImage = `url("static/weather_icon/${weatherImg}")`;
+    console.log(`changeWeather: ${weatherImg}`);
     
+
     changeTextContent(".weathertext", weatherElement[0]["value"]);
     changeTextContent(".comfort", weatherElement[3]["value"]);
 
