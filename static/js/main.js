@@ -46,6 +46,9 @@ const changeWeather = async (cityChosen) => {
     // fetch location weather info
     let weatherElement = await getWeatherInfo(cityChosen);
 
+    const sectionLeft = document.querySelector(".section2-left");
+    sectionLeft.style.visibility = "initial";
+
     // update location
     changeTextContent(".city", cityChosen);
 
