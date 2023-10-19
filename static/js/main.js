@@ -93,14 +93,51 @@ locationOptions.forEach(option => {
 
 
 // ----- e-paper: subscribe function -----
-const subscribeEpaper = async() => {
+const updateEpaper = async() => {
     let//
-    discordEndpoint = document.querySelector("").value,
-    locationForSubcription = document.querySelector("").value;
+    classArray = document.querySelector(".wrapper-1").getAttribute("class").split(" "),
+    notYetSubscribe = "wrapper-display" in classArray;
+
+    // recored a new subscriber
+    if (notYetSubscribe) {
+        let//
+        discordEndpoint = document.querySelector(".user-input").value,
+        locationForSubcription = document.querySelector(".sub-select-btn").textContent;
+
+        try {
+            let response = await fetch("/api/e_paper", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    "city": locationForSubcription,
+                    "webhookUrl": discordEndpoint
+                })
+            });
+
+            let result = await response.json();
+
+            if (!response.ok) {
+                console.log(result.description);
+                throw "Subscription failed.";
+            };
+
+            return "Subscription succeeded."
+        }
+        catch(error) {
+            console.log(error);
+            throw error
+        }
+    }
+
+    // modify subscriber info
+    let//
+    discordEndpoint = document.querySelector(".user-input").value,
+    locationForSubcription = document.querySelector(".sub-select-btn").textContent;
 
     try {
         let response = await fetch("/api/e_paper", {
-            method: "POST",
+            method: "PATCH",
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
                 "city": locationForSubcription,
                 "webhookUrl": discordEndpoint
@@ -117,77 +154,86 @@ const subscribeEpaper = async() => {
         return "Subscription succeeded."
     }
     catch(error) {
-        console.log(error);
-        throw error
+        throw error 
     }
-}
-
-
-// ----- e-paper: update function -----
-const updateEpaper = async() => {
-    let//
-    discordEndpoint = document.querySelector("").value,
-    locationForSubcription = document.querySelector("").value;
-
-    try {
-        let response = await fetch("/api/e_paper", {
-            method: "PATCH",
-            body: JSON.stringify({
-                "city": locationForSubcription,
-                "webhookUrl": discordEndpoint
-            })
-        });
-
-        let result = await response.json();
-
-        if (!response.ok) {
-            console.log(result.description);
-            throw "Update failed.";
-        };
-
-        return "Update succeeded.";
-    }
-    catch(error) {
-        console.log(error);
-        throw error
-    }   
 }
 
 
 // ----- e-paper: delete function -----
+// const updateEpaper = async() => {
+//     let//
+//     classArray = document.querySelector(".wrapper-1").getAttribute("class").split(" "),
+//     notYetSubscribe = "wrapper-display" in classArray;
+
+//     if (!notYetSubscribe) {
+//         let//
+//         discordEndpoint = document.querySelector("").value,
+//         locationForSubcription = document.querySelector("").value;
+
+//         try {
+//             let response = await fetch("/api/e_paper", {
+//                 method: "PATCH",
+//                 body: JSON.stringify({
+//                     "city": locationForSubcription,
+//                     "webhookUrl": discordEndpoint
+//                 })
+//             });
+
+//             let result = await response.json();
+
+//             if (!response.ok) {
+//                 console.log(result.description);
+//                 throw "Update failed.";
+//             };
+
+//             return "Update succeeded.";
+//         }
+//         catch(error) {
+//             console.log(error);
+//             throw error
+//         }
+//     } 
+// }
+
+
+// ----- e-paper: delete function -----
 const deleteEpaper = async() => {
-    let discordEndpoint = document.querySelector("").value;
+    let//
+    classArray = document.querySelector(".wrapper-1").getAttribute("class").split(" "),
+    notYetSubscribe = "wrapper-display" in classArray;
 
-    try {
-        let response = await fetch("/api/e_paper", {
-            method: "DELETE",
-            body: JSON.stringify({
-                "webhookUrl": discordEndpoint
-            })
-        });
+    if (!notYetSubscribe) {
+        let discordEndpoint = document.querySelector("").value;
+        try {
+            let response = await fetch("/api/e_paper", {
+                method: "DELETE",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    "webhookUrl": discordEndpoint
+                })
+            });
 
-        let result = await response.json();
+            let result = await response.json();
 
-        if (!response.ok) {
-            console.log(result.description);
-            throw "Delete failed.";
-        };
+            if (!response.ok) {
+                console.log(result.description);
+                throw "Delete failed.";
+            };
 
-        return "Delete succeeded.";
+            return "Delete succeeded.";
+        }
+        catch(error) {
+            console.log(error);
+            throw error
+        }   
     }
-    catch(error) {
-        console.log(error);
-        throw error
-    }   
 }
 
 
 // ----- add click event for Epaper-----
 let// 
-subscribeBtn = document.querySelector(".subscribe-btn"),
-updateBtn = document.querySelector("."), //待補上update button element
-deleteBtn = document.querySelector(".");//待補上delete button element
+subscribeBtn = document.querySelector(".subscribe-btn p"),
+deleteBtn = document.querySelector(".unsubscribe-btn p");
 
-subscribeBtn.addEventListener("click", subscribeEpaper);
-updateBtn.addEventListener("click", updateEpaper);
+subscribeBtn.addEventListener("click", updateEpaper);
 deleteBtn.addEventListener("click", deleteEpaper);
