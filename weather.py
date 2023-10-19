@@ -7,7 +7,7 @@ weather_bp = Blueprint("weather_bp", __name__)
 
 load_dotenv()
 weather_api_key = os.getenv("weather_api_key")
-TIME_INTERVAL = 6
+TIME_INTERVAL = 18
 LOCATION_LIST_API = [
     "宜蘭縣",
     "花蓮縣",
