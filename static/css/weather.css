@@ -55,10 +55,10 @@
     
   
     .select-form-wrapper {
-  
+        border:2px rgba(145, 145, 145, 0.601) solid;
       border-radius: 10px;
       padding: 20px 70px 80px 70px;
-      background-color: #ffffff91;
+      background-color: #e8e8e8c7;
       height:450px;
       position: relative;
       top:40px;
@@ -66,6 +66,9 @@
       width: 300px;
     }
     
+    .select-form-wrapper-2{
+        height:500px;
+    }
   
     .fa-xmark{
       position: absolute;
@@ -155,12 +158,49 @@
       border: 2px solid #383838;
     }
     
+
+
+    .unsubscribe-btn{
+
+        /* border: 2px red solid; */
+        display: flex;
+
+        justify-content: center;
+        margin-bottom: -20px;
+
+    }
+    .unsubscribe-btn p{
+        /* border: 2px red solid; */
+        width: 130px;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        background-color: #04cefc;
+        font-family: Noto Sans TC;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 15px 0px;
+        
+        cursor: pointer;
+    
+        border: 1px rgb(201, 201, 201) solid;
+        background-color: #ffffff;
+        border-radius: 5px;
+      
+        color: #4d4d4d;
+        font-style: normal;
+        line-height: 13.3px;
+    }
+
     .container {
+        /* border: 1px red solid; */
       position: relative;
       height: 50px;
       display: flex;
       justify-content: center;
       margin-bottom: 10px;
+      /* border: 1px red solid; */
+
     }
     
     .container .sub-select-form {
@@ -293,6 +333,7 @@
       width: 100%;
       align-items: center;
       justify-content: center;
+      /* border: 1px red solid; */
     }
     
     .subscribe-btn p {
@@ -973,6 +1014,21 @@
       .sub-opt, .sub-select-btn {
           padding: 6px 0px;
       }
+
+
+    .unsubscribe-btn{
+
+        /* border: 2px red solid; */
+        display: flex;
+
+        justify-content: center;
+        margin-bottom: -20px;
+        margin-top: -20px;
+    }
+      .unsubscribe-btn p{
+        padding: 6px 0px;
+    }
+
       .slogan {
           font-size: 21px;
       }
@@ -998,7 +1054,14 @@
         }
   }
   @media (min-width: 360px) and (max-width: 767px) {
-  
+    .subscribe-btn {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        /* border: 1px red solid; */
+        margin-top: -20px;
+      }
   
       .background-image {
           width: 100%;
