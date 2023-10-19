@@ -96,10 +96,10 @@ locationOptions.forEach(option => {
 const updateEpaper = async() => {
     let//
     classArray = document.querySelector(".wrapper-1").getAttribute("class").split(" "),
-    notYetSubscribe = "wrapper-display" in classArray;
+    subscribeAlready = "wrapper-hidden" in classArray;
 
     // recored a new subscriber
-    if (notYetSubscribe) {
+    if (!subscribeAlready) {
         let//
         discordEndpoint = document.querySelector(".user-input").value,
         locationForSubcription = document.querySelector(".sub-select-btn").textContent;
@@ -131,7 +131,7 @@ const updateEpaper = async() => {
 
 
     // modify subscriber info
-    if (notYetSubscribe) {
+    if (subscribeAlready) {
         let//
         discordEndpoint = document.querySelector(".user-input").value,
         locationForSubcription = document.querySelector(".sub-select-btn").textContent;
@@ -203,10 +203,10 @@ const updateEpaper = async() => {
 const deleteEpaper = async() => {
     let//
     classArray = document.querySelector(".wrapper-1").getAttribute("class").split(" "),
-    notYetSubscribe = "wrapper-display" in classArray;
+    subscribeAlready = "wrapper-hidden" in classArray;
 
-    if (!notYetSubscribe) {
-        let discordEndpoint = document.querySelector("").value;
+    if (subscribeAlready) {
+        let discordEndpoint = document.querySelector(".user-input").value;
         try {
             let response = await fetch("/api/e_paper", {
                 method: "DELETE",
@@ -226,7 +226,7 @@ const deleteEpaper = async() => {
             return "Delete succeeded.";
         }
         catch(error) {
-            console.log(error);
+            // console.log(error);
             throw error
         }   
     }
