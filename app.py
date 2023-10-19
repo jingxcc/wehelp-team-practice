@@ -1,9 +1,8 @@
 from flask import Flask, render_template
-from flask_apscheduler import APScheduler
 
 from weather import weather_bp
 from e_paper import e_paper
-from e_paper import get_weather_info, parse_weather_description, send_weather_info
+import daily_e_paper_schedule
 from db_connection import DB_Connector
 
 app = Flask(__name__)
@@ -21,34 +20,8 @@ app.config["SCHEDULER_TIMEZONE"] = "asia/taipei"
 def index():
     return render_template("index.html")
 
-scheduler = APScheduler()
-
-def get_subscriber_webhook_url(city):
-    try:
-        cnx_pool = app.config["cnx_pool"]
-        conn, cursor = cnx_pool.get_connection_and_cursor()
-    except:
-        cnx_pool.release_connection_and_cursor(conn, cursor)
-        return {"error": True, "message": "cannot connect to database"}, 500
-    cursor.execute("SELECT webhook_url FROM subscriber WHERE city=%s", (city,))
-    record = cursor.fetchall()
-    cnx_pool.release_connection_and_cursor(conn, cursor)
-    return record
-
-@scheduler.task("cron", id = "job1", day = "*", hour = "08", minute = "00", second = "00", misfire_grace_time = 60, timezone="asia/taipei")
-def job1():
-    city_lst = ["台北", "新北", "桃園", "台中", "台南", "高雄"]
-    for city in city_lst:
-        webhook_urls = get_subscriber_webhook_url(city)
-        print(webhook_urls)
-        if webhook_urls == None:
-            pass
-        else:
-            weather_info = get_weather_info(city)
-            weather_comment = parse_weather_description(weather_info)
-            for i in range(len(webhook_urls)):
-                send_weather_info(weather_comment, webhook_urls[i][0])
-
 if __name__ == "__main__":
+    daily_e_paper_schedule.scheduler.init_app(app)
+    daily_e_paper_schedule.scheduler.start()
     app.debug = True
     app.run(host="0.0.0.0", port=3000)
