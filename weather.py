@@ -52,13 +52,13 @@ def get_weather():
         message = "Please pass valiate location"
         return jsonify({"error": True, "message": message}), 400
 
-    result_weather_status = get_weather_status(location_name_api)
+    result_weather_status, status_code = get_weather_status(location_name_api)
     if "error" in result_weather_status:
-        return jsonify(result_weather_status), 500
+        return jsonify(result_weather_status), status_code
 
-    result_current_temp = get_current_temp(location_name_api)
+    result_current_temp, status_code = get_current_temp(location_name_api)
     if "error" in result_current_temp:
-        return jsonify(result_current_temp), 500
+        return jsonify(result_current_temp), status_code
 
     response_data = {"success": True, "data": []}
     response_data["data"].append({"location": location_name, "weatherElement": []})
@@ -118,14 +118,18 @@ def get_weather_status(location_name):
             ),
         }
         response = requests.get(api_url, params=payload)
-        response = response.json()
-
-        return response
+        status_code = response.status_code
+        if status_code == 200:
+            response = response.json()
+            return response, status_code
+        else:
+            message = f"Open Weather API: {response.reason}"
+            return {"error": True, "message": message}, status_code
 
     except Exception as error:
-        print(error)
+        print(f"Open Weather API: {error}")
         message = "Open Weather API Error"
-        return {"error": True, "message": message}
+        return {"error": True, "message": message}, 500
 
 
 def get_current_temp(location_name):
@@ -140,11 +144,15 @@ def get_current_temp(location_name):
             "elementName": "T",
         }
         response = requests.get(api_url, params=payload)
-        response = response.json()
-
-        return response
+        status_code = response.status_code
+        if status_code == 200:
+            response = response.json()
+            return response, status_code
+        else:
+            message = f"Open Weather API: {response.reason}"
+            return {"error": True, "message": message}, status_code
 
     except Exception as error:
-        print(error)
+        print(f"Open Weather API: {error}")
         message = "Open Weather API Error"
-        return {"error": True, "message": message}
+        return {"error": True, "message": message}, 500
