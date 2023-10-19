@@ -150,8 +150,8 @@ const updateEpaper = async() => {
     // recored a new subscriber
     if (!subscribeAlready) {
         let//
-        discordEndpoint = document.querySelector(".user-input").value,
-        locationForSubcription = document.querySelector(".sub-select-btn").textContent;
+        discordEndpoint = document.querySelector(".wrapper-1 .user-input").value,
+        locationForSubcription = document.querySelector(".wrapper-1 .sub-select-btn").textContent;
 
         try {
             let response = await fetch("/api/e_paper", {
@@ -169,7 +169,16 @@ const updateEpaper = async() => {
                 throw "Subscription failed.";
             };
 
-            return "Subscription succeeded."
+            let//
+            msg = document.createElement("p"),
+            wrapper1Form = document.querySelector(".wrapper-1 .select-form-wrapper");
+            msg.textContent = "Subscription succeeds!";
+            msg.style.fontFamily = "Exo 2, sans-serif";
+            msg.style.fontSize = "30px";
+            msg.style.textAlign = "center";
+            wrapper1Form.appendChild(msg);
+
+            return "Subscription succeeds."
         }
         catch(error) {
             throw error
@@ -180,8 +189,8 @@ const updateEpaper = async() => {
     // modify subscriber info
     if (subscribeAlready) {
         let//
-        discordEndpoint = document.querySelector(".user-input").value,
-        locationForSubcription = document.querySelector(".sub-select-btn").textContent;
+        discordEndpoint = document.querySelector(".wrapper-2 .user-input").value,
+        locationForSubcription = document.querySelector(".wrapper-2 .sub-select-btn").textContent;
 
         try {
             let response = await fetch("/api/e_paper", {
@@ -199,7 +208,15 @@ const updateEpaper = async() => {
                 throw "Subscription failed.";
             };
 
-            return "Subscription succeeded."
+            let//
+            msg = document.createElement("p"),
+            wrapper1Form = document.querySelector(".wrapper-2 .select-form-wrapper");
+            msg.textContent = "Update succeeds!";
+            msg.style.fontFamily = "Exo 2, sans-serif";
+            msg.style.fontSize = "30px";
+            msg.style.textAlign = "center";
+            wrapper1Form.appendChild(msg);
+            return "Update succeeds."
         }
         catch(error) {
             throw error 
@@ -252,7 +269,7 @@ const deleteEpaper = async() => {
     subscribeAlready = classArray.includes("wrapper-hidden");
 
     if (subscribeAlready) {
-        let discordEndpoint = document.querySelector(".user-input").value;
+        let discordEndpoint = document.querySelector(".wrapper-2 .user-input").value;
         try {
             let response = await fetch("/api/e_paper", {
                 method: "DELETE",
@@ -268,7 +285,16 @@ const deleteEpaper = async() => {
                 throw "Delete failed.";
             };
 
-            return "Delete succeeded.";
+            let//
+            msg = document.createElement("p"),
+            wrapper1Form = document.querySelector(".wrapper-2 .select-form-wrapper");
+            msg.textContent = "See you!";
+            msg.style.fontFamily = "Exo 2, sans-serif";
+            msg.style.fontSize = "30px";
+            msg.style.textAlign = "center";
+            wrapper1Form.appendChild(msg);
+
+            return "Delete succeeds.";
         }
         catch(error) {
             throw error
