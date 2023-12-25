@@ -20,6 +20,11 @@ def convert_string_to_lst(lst):
     string = lst.split(',')
     return string
 
+
+def add_line_break(lst):
+    string = '\n'.join(lst)
+    return string
+
 # models
 def add_subscriber(city, webhook_url):
     try:
@@ -88,15 +93,9 @@ def send_e_paper_subscription_notification(city, webhook_url, state):
 def send_weather_comment(weather_comment, webhook_url):
     brief_comment = {
     'username': '天氣小幫手\U0001F436',
-    'embeds': [{'title': weather_comment[0], 'color': '14177041'}],
+    'embeds': [{'title': weather_comment[0], 'color': '14177041', "description":add_line_break(weather_comment[1:])}],
     }
     r = requests.post(webhook_url, json = brief_comment)
-    for i in range(1, len(weather_comment)):
-        weather_detail = {
-            'username': '天氣小幫手\U0001F436',
-            'content': weather_comment[i]
-        }
-        r = requests.post(webhook_url, json = weather_detail)
 
 # controllers
 @e_paper.route('/api/e_paper', methods = ['POST', 'PATCH'])
