@@ -1,6 +1,7 @@
 # 狗狗氣象小幫手
 
-成果連結：http://54.65.60.124:3000/
+<img width="600" alt="image" src="https://github.com/jingxcc/wehelp-team-practice/assets/22387699/f755338b-4fc0-4307-a4de-e46f65fad609">
+
 ## 主要功能
 
 - 提供六都目前氣象資料
