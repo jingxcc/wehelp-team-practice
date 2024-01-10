@@ -134,7 +134,7 @@ def get_weather_status(location_name):
 
 def get_current_temp(location_name):
     try:
-        api_url = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-089"
+        api_url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-089"
         payload = {
             "Authorization": weather_api_key,
             "locationName": location_name,
