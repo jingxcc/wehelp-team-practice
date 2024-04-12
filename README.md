@@ -6,7 +6,8 @@
 
 ## 主要功能
 
-1. 提供六都目前氣象資料
+1. 提供六都目前氣象資料\
+   串接氣象資料開放平臺的 API 來提供天氣資訊。
    ![select-city](./static/README/select.gif)
 2. 訂閱 Discord Bot 電子報\
    使用 Discord webhook 傳送電子報至 Discord 對應的頻道
@@ -14,6 +15,12 @@
 3. 變更訂閱的都市、取消訂閱電子報
    ![edit-subscription](./static/README/edit_subscription.gif)
    ![cancel-subscription](./static/README/cancel_subscription.gif)
+
+## Tech Stack
+
+- HTML, CSS, JavaScript
+- Python Flask
+- AWS: EC2, Elastic IP
 
 ## 分工表
 
